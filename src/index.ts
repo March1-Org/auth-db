@@ -1,6 +1,5 @@
-import { spreads } from 'utils/spread';
-
 import { usersTable } from 'schema/users';
+import { spreads } from 'utils/spread';
 
 export const schema = { users: usersTable };
 
