@@ -1,0 +1,49 @@
+name: Run Tests on Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set up environment variables
+        run: |
+          echo "POSTGRES_USER=db_user" > .env.testing
+          echo "POSTGRES_PASSWORD=db_password" >> .env.testing
+          echo "POSTGRES_DB=db" >> .env.testing
+          echo "POSTGRES_PORT=5432" >> .env.testing
+          echo "REDIS_URL=127.0.0.1" >> .env.testing
+          echo "REDIS_PORT=6379" >> .env.testing
+          echo "REDIS_HOST=127.0.0.1" >> .env.testing
+          echo "REDIS_PASSWORD=cache_password" >> .env.testing
+          echo "REDIS_DATABASE=0" >> .env.testing
+          echo "JWT_SECRET=jwt-secret" >> .env.testing
+
+      - name: Make setup.sh and teardown.sh executable
+        run: chmod +x ./test/setup.sh && chmod +x ./test/teardown.sh
+
+      - name: Install Packages
+        run: bun install
+        env:
+          MARCH1_GITHUB_TOKEN: ${{ secrets.MARCH1_GITHUB_TOKEN }}
+
+      - name: Check Linting
+        run: bun run lint
+
+      - name: Setup tests containers
+        run: bash ./test/setup.sh
+
+      - name: Run tests
+        run: bun test
+
+      - name: Teardown tests containers
+        run: bash ./test/teardown.sh
