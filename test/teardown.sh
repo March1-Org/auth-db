@@ -12,5 +12,8 @@ fi
 echo "Stopping and removing containers..."
 docker stop $DB_CONTAINER_ID
 docker rm $DB_CONTAINER_ID
+# Remove volume
+echo "Removing docker volume..."
+docker volume rm test_data || echo "Volume test_data not found or already removed"
 # Optionally, remove the container_ids.env file
 rm -f container_ids.env

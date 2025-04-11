@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Load environment variables
-if [ -f .env.testing ]; then
-  source .env.testing
+if [ -f .env.test.local ]; then
+  source .env.test.local
 else
-  echo "Error: .env.testing file not found."
+  echo "Error: .env.test.local file not found."
   exit 1
 fi
 
 # Create Docker volume for PostgreSQL data
-docker volume create postgres_data
+docker volume create test_data
 
 # Start the PostgreSQL container
 DB_CONTAINER_ID=$(docker run -d \
@@ -17,7 +17,7 @@ DB_CONTAINER_ID=$(docker run -d \
   -e POSTGRES_PASSWORD="$POSTGRES_PASSWORD" \
   -e POSTGRES_DB="$POSTGRES_DB" \
   -p 5432:5432 \
-  -v postgres_data:/var/lib/postgresql/data \
+  -v test_data:/var/lib/postgresql/data \
   postgres:latest)
 
 if [ -z "$DB_CONTAINER_ID" ]; then
