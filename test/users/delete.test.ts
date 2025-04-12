@@ -14,6 +14,7 @@ beforeAll(async () => {
   const setupVals = await setup();
   db = setupVals.db;
 });
+
 beforeEach(async () => {
   await db.delete(schema.users);
   const mockUser = {

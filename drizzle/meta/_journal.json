@@ -8,6 +8,13 @@
       "when": 1744207688263,
       "tag": "0000_far_whizzer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1744383591880,
+      "tag": "0001_real_lenny_balinger",
+      "breakpoints": true
     }
   ]
 }
