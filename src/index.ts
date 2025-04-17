@@ -1,9 +1,16 @@
+import { accountsTable } from 'schema/accounts';
+import { sessionsTable } from 'schema/sessions';
 import { usersTable } from 'schema/users';
+import { verificationsTable } from 'schema/verifications';
 import { spreads } from 'utils/spread';
 
-export { usersTable as users } from 'schema/users';
-
-export const schema = { users: usersTable };
+export const schema = {
+  users: usersTable,
+  sessions: sessionsTable,
+  verifications: verificationsTable,
+  accounts: accountsTable,
+};
+export const { users, sessions, verifications, accounts } = schema;
 
 export type Schema = typeof schema;
 
