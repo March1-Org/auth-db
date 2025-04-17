@@ -14,6 +14,15 @@
     },
     "./users": {
       "types": "./dist/schema/users.d.ts"
+    },
+    "./sessions": {
+      "types": "./dist/schema/sessions.d.ts"
+    },
+    "./verifications": {
+      "types": "./dist/schema/verifications.d.ts"
+    },
+    "./accounts": {
+      "types": "./dist/schema/accounts.d.ts"
     }
   },
   "scripts": {
