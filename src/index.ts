@@ -4,20 +4,20 @@ import { usersTable } from 'schema/users';
 import { verificationsTable } from 'schema/verifications';
 import { spreads } from 'utils/spread';
 
-export const schema = {
+export const authSchema = {
   users: usersTable,
   sessions: sessionsTable,
   verifications: verificationsTable,
   accounts: accountsTable,
 };
-export const { users, sessions, verifications, accounts } = schema;
+export const { users, sessions, verifications, accounts } = authSchema;
 
-export type Schema = typeof schema;
+export type AuthSchema = typeof authSchema;
 
-export const schemaBodies = {
-  insert: spreads(schema, 'insert'),
-  select: spreads(schema, 'select'),
-  update: spreads(schema, 'update'),
+export const authSchemaBodies = {
+  insert: spreads(authSchema, 'insert'),
+  select: spreads(authSchema, 'select'),
+  update: spreads(authSchema, 'update'),
 };
 
-export type SchemaBodies = typeof schemaBodies;
+export type AuthSchemaBodies = typeof authSchemaBodies;
