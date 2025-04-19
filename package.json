@@ -3,7 +3,7 @@
   "publishConfig": {
     "@march1-org:registry": "https://npm.pkg.github.com"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "module": "src/index.ts",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -31,7 +31,7 @@
     "build:npm": "bun build --target=node ./src/index.ts --outfile=dist/index.js && bun run build:declaration",
     "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json",
     "postbuild": "rimraf tsconfig.types.tsbuildinfo",
-    "publish:build": "bun run build:npm && bun publish --registry https://npm.pkg.github.com",
+    "publish:npm": "bun run build:npm && bun publish --registry https://npm.pkg.github.com",
     "test:integrated": "bash ./test/setup.sh && bun test || true && bash ./test/teardown.sh",
     "lint": "eslint src && prettier src --check --config ./.prettierrc",
     "prettify": "prettier src --write"

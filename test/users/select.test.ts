@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test';
 import type { DbType } from 'db';
-import { schema } from 'index';
+import { authSchema } from 'index';
 
 import { setup } from '../utils/setup';
 
@@ -14,12 +14,12 @@ beforeAll(async () => {
 
 // Clean slate before each test
 beforeEach(async () => {
-  await db.delete(schema.users);
+  await db.delete(authSchema.users);
 });
 
 describe('User Selection', () => {
   it('should return empty array when no users exist', async () => {
-    const users = await db.select().from(schema.users);
+    const users = await db.select().from(authSchema.users);
 
     expect(users).toBeArray();
     expect(users).toHaveLength(0);
@@ -52,10 +52,10 @@ describe('User Selection', () => {
       },
     ];
 
-    await db.insert(schema.users).values(testUsers);
+    await db.insert(authSchema.users).values(testUsers);
 
     // Verify selection
-    const users = await db.select().from(schema.users);
+    const users = await db.select().from(authSchema.users);
 
     expect(users).toBeArray();
     expect(users).toHaveLength(2);
@@ -75,15 +75,15 @@ describe('User Selection', () => {
       phoneNumberVerified: faker.datatype.boolean(),
     };
 
-    await db.insert(schema.users).values(testUser);
+    await db.insert(authSchema.users).values(testUser);
 
     // Select only name and email columns
     const users = await db
       .select({
-        name: schema.users.name,
-        email: schema.users.email,
+        name: authSchema.users.name,
+        email: authSchema.users.email,
       })
-      .from(schema.users);
+      .from(authSchema.users);
 
     expect(users).toBeArray();
     expect(users).toHaveLength(1);
